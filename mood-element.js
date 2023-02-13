@@ -7,7 +7,10 @@
 import {LitElement, html, css} from 'lit';
 
 export class MoodElement extends LitElement {
-  mood = '';
+  static properties = {
+    mood: {},
+    selected: {},
+  }
 
   static get styles() {
     return css`
@@ -15,26 +18,41 @@ export class MoodElement extends LitElement {
         display: flex;
         flex-direction: column;
         width: 228px;
-        align-items: center;
+        align-items: stretch;
+        margin: 24px 0 24px 0;
       }
 
-      p {
+      div.selected {
+        border: orange solid 12px;
+        margin: 12px 0 12px 0;
+      }
+
+      span {
         font-family: ParksFont;
         margin: 0;
         font-size: 3vh;
+        text-align: center;
+        background-color: #cf4f4f
       }
     `;
   }
 
+  getClass(selected) {
+    return selected ? 'selected' : '';
+  }
+
   constructor() {
     super();
+    this.mood = '';
+    this.selected = false;
   }
 
   render() {
+    console.log("Regénération enfant");
     return html`
-      <div>
+      <div class=${this.getClass(this.selected)}>
         <img src="./img/${this.mood.toLocaleLowerCase()}.png" />
-        <p>${this.mood}</p>
+        <span>${this.mood}</span>
       </div>
     `;
   }
