@@ -53,7 +53,6 @@ export class MoodElement extends LitElement {
   }
 
   render() {
-    console.log("Regénération enfant");
     return html`
       <div class=${this.getClass(this.selection)}>
         <img src="http://localhost:3000/img/${this.mood.toLocaleLowerCase()}.png" />
