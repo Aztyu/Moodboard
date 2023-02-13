@@ -9,7 +9,7 @@ import {LitElement, html, css} from 'lit';
 export class MoodElement extends LitElement {
   static properties = {
     mood: {},
-    selected: {},
+    selection: {},
   }
 
   static get styles() {
@@ -22,8 +22,13 @@ export class MoodElement extends LitElement {
         margin: 24px 0 24px 0;
       }
 
-      div.selected {
-        border: orange solid 12px;
+      div.selected-corentin {
+        border: blue solid 12px;
+        margin: 12px 0 12px 0;
+      }
+
+      div.selected-sharon {
+        border: red solid 12px;
         margin: 12px 0 12px 0;
       }
 
@@ -37,21 +42,21 @@ export class MoodElement extends LitElement {
     `;
   }
 
-  getClass(selected) {
-    return selected ? 'selected' : '';
+  getClass(selection) {
+    return selection ? 'selected-' + selection : '';
   }
 
   constructor() {
     super();
     this.mood = '';
-    this.selected = false;
+    this.selection = null;
   }
 
   render() {
     console.log("Regénération enfant");
     return html`
-      <div class=${this.getClass(this.selected)}>
-        <img src="./img/${this.mood.toLocaleLowerCase()}.png" />
+      <div class=${this.getClass(this.selection)}>
+        <img src="http://localhost:3000/img/${this.mood.toLocaleLowerCase()}.png" />
         <span>${this.mood}</span>
       </div>
     `;

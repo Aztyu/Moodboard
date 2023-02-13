@@ -16,12 +16,16 @@ export class MoodPageElement extends LitElement {
 
     static get styles() {
         return css`
-          .wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            margin: 0 10% 0 10%;
-            justify-items: center;
-          }
+            h1 {
+                font-family: ParksFont;
+            }
+
+            .wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                margin: 0 10% 0 10%;
+                justify-items: center;
+            }
         `;
     }
 
@@ -45,27 +49,59 @@ export class MoodPageElement extends LitElement {
             .then((response) => response.json())
             .then((obj) => {
                 console.log('request user', obj)
+                for (const [key, value] of Object.entries(obj)) {
+                    this.select(value, key);
+                }
             })
     }
 
-    select(mood) {
+    sendMoodUpdate(mood, user) {
+        fetch('http://localhost:3000/mood/user', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({mood: mood, user: user})
+        }).then(_ => console.log('Update OK'));
+    }
+
+    updateSelection(itemMood, itemSelection, newMood, user) {
+        const userLower = user.toLocaleLowerCase()
+
+        if (itemMood === newMood) {
+            this.sendMoodUpdate(newMood, user)
+            return userLower
+        }
+        if (!!itemSelection && itemSelection != userLower) {
+            return itemSelection
+        }
+        return null
+    }
+
+    select(mood, user) {
+        if (!user) {
+            user = sessionStorage.getItem('user')
+            if (!user) {
+                user = 'Sharon'
+                sessionStorage.setItem('user', user)
+            }
+        }
+
         this.items = this.items.map(obj => {
-            return {mood: obj.mood, selected: obj.mood === mood }
+            return { mood: obj.mood, selection: this.updateSelection(obj.mood, obj.selection, mood, user) }
         })
-        console.log("Sélection", this.items);
     }
 
     render() {
         const itemTemplates = [];
 
         this.items.forEach(obj => itemTemplates.push(
-            html`<mood-element .mood=${obj.mood} .selected=${!!obj.selected} @click=${() => this.select(obj.mood)}></mood-element>`
+            html`<mood-element .mood=${obj.mood} .selection=${obj.selection} @click=${() => this.select(obj.mood)}></mood-element>`
         ));
 
-        console.log("Regénération");
-
         return html`
-            <h1>MoodPageElement</h1>
+            <h1>Moodboard Leslie</h1>
             <div class="wrapper">
                 ${itemTemplates}
             </div>
