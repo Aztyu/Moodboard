@@ -55,7 +55,7 @@ export class MoodElement extends LitElement {
   render() {
     return html`
       <div class=${this.getClass(this.selection)}>
-        <img src="http://localhost:3000/img/${this.mood.toLocaleLowerCase()}.png" />
+        <img src="http://corentinbeal.fr:3000/img/${this.mood.toLocaleLowerCase()}.png" />
         <span>${this.mood}</span>
       </div>
     `;

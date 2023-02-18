@@ -9,6 +9,9 @@ import {LitElement, html, css} from 'lit';
 import './mood-element.js';
 
 export class MoodPageElement extends LitElement {
+    static get API_URL() {
+        return  "http://corentinbeal.fr:3000";
+    }
 
     static properties = {
         items: {},
@@ -34,7 +37,7 @@ export class MoodPageElement extends LitElement {
         this.items = []
 
         const request = new Request(
-            "http://localhost:3000/mood"
+            MoodPageElement.API_URL + '/mood'
         )
         fetch(request)
             .then((response) => response.json())
@@ -43,7 +46,7 @@ export class MoodPageElement extends LitElement {
             })
 
         const requestUser = new Request(
-            "http://localhost:3000/mood/user"
+            MoodPageElement.API_URL + '/mood/user'
         )
         fetch(requestUser)
             .then((response) => response.json())
@@ -56,7 +59,7 @@ export class MoodPageElement extends LitElement {
     }
 
     sendMoodUpdate(mood, user) {
-        fetch('http://localhost:3000/mood/user', {
+        fetch(MoodPageElement.API_URL + '/mood/user', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
