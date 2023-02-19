@@ -9,12 +9,9 @@ import {LitElement, html, css} from 'lit';
 import './mood-element.js';
 
 export class MoodPageElement extends LitElement {
-    static get API_URL() {
-        return  "http://corentinbeal.fr:3000";
-    }
-
     static properties = {
         items: {},
+        apiUrl: {}
     }
 
     static get styles() {
@@ -34,36 +31,38 @@ export class MoodPageElement extends LitElement {
 
     constructor() {
         super();
-        fetch('./variable.json')
-            .then(response => response.json())
-            .then(data => console.log(data))
-
         this.items = []
 
-        const request = new Request(
-            MoodPageElement.API_URL + '/mood'
-        )
-        fetch(request)
-            .then((response) => response.json())
-            .then((array) => {
-                this.items = array.map(item => { return {mood: item} })
-            })
+        fetch('./variable.json')
+            .then(response => response.json())
+            .then(data => {
+                this.apiUrl = data.API_URL;
 
-        const requestUser = new Request(
-            MoodPageElement.API_URL + '/mood/user'
-        )
-        fetch(requestUser)
-            .then((response) => response.json())
-            .then((obj) => {
-                console.log('request user', obj)
-                for (const [key, value] of Object.entries(obj)) {
-                    this.select(value, key);
-                }
+                const request = new Request(
+                    this.apiUrl + '/mood'
+                )
+                fetch(request)
+                    .then((response) => response.json())
+                    .then((array) => {
+                        this.items = array.map(item => { return {mood: item} })
+                    })
+        
+                const requestUser = new Request(
+                    this.apiUrl + '/mood/user'
+                )
+                fetch(requestUser)
+                    .then((response) => response.json())
+                    .then((obj) => {
+                        console.log('request user', obj)
+                        for (const [key, value] of Object.entries(obj)) {
+                            this.select(value, key);
+                        }
+                    })
             })
     }
 
     sendMoodUpdate(mood, user) {
-        fetch(MoodPageElement.API_URL + '/mood/user', {
+        fetch(this.apiUrl + '/mood/user', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

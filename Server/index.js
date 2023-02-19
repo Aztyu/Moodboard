@@ -6,7 +6,7 @@ const app = express()
 const port = 3000
 
 const moodUser = {}
-const moods = ['Angry', 'Girlboss', 'Hungry', 'Mad', 'Tired']
+const moods = ['Relaxed', 'Sad', 'Angry', 'Savage', 'Confused', 'Happy', 'Crazy', 'Worried', 'Proud', 'Stressed', 'Tired', 'Surprised', 'Hot mess', 'Loved', 'Nervous', 'Beautiful']
 
 app.use(bodyParser.json())
 app.use(cors())

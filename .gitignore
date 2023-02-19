@@ -1,7 +1,10 @@
 node_modules/
 ./node_modules
 
+
+
 Website/custom-elements.json
 # only generated for size check
 Website/my-element.bundled.js
 Website/dist/
+Website/variable.json

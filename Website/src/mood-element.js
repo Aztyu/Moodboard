@@ -10,6 +10,7 @@ export class MoodElement extends LitElement {
   static properties = {
     mood: {},
     selection: {},
+    apiUrl: {}
   }
 
   static get styles() {
@@ -50,12 +51,18 @@ export class MoodElement extends LitElement {
     super();
     this.mood = '';
     this.selection = null;
+
+    fetch('./variable.json')
+            .then(response => response.json())
+            .then(data => {
+                this.apiUrl = data.API_URL;
+            })
   }
 
   render() {
     return html`
       <div class=${this.getClass(this.selection)}>
-        <img src="http://corentinbeal.fr:3000/img/${this.mood.toLocaleLowerCase()}.png" />
+        <img src="${this.apiUrl}/img/${this.mood.toLocaleLowerCase()}.png" />
         <span>${this.mood}</span>
       </div>
     `;
