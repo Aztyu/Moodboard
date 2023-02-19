@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>&lt;my-element> Demo</title>
-    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="src/mood-page-element.js"></script>
-    <style>
-      @font-face {
-          font-family: ParksFont;
-          src: url("http://corentinbeal.fr:3000/font/ParksFont.otf") format("opentype");
-      }
 
-      p {
-        border: solid 1px blue;
-        padding: 8px;
-      }
-    </style>
-  </head>
-  <body>
-    <mood-page-element></mood-page-element>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>Moodboard</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="http://corentinbeal.fr:3000/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="http://corentinbeal.fr:3000/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="http://corentinbeal.fr:3000/favicon/favicon-16x16.png">
+  <link rel="manifest" href="http://corentinbeal.fr:3000/favicon/site.webmanifest">
+  <link rel="mask-icon" href="http://corentinbeal.fr:3000/favicon/safari-pinned-tab.svg" color="#5b78d5">
+  <link rel="shortcut icon" href="http://corentinbeal.fr:3000/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="http://corentinbeal.fr:3000/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="node_modules/lit/polyfill-support.js"></script>
+  <script type="module" src="src/mood-page-element.js"></script>
+  <style>
+    @font-face {
+      font-family: ParksFont;
+      src: url("http://corentinbeal.fr:3000/font/ParksFont.otf") format("opentype");
+    }
+
+    p {
+      border: solid 1px blue;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <mood-page-element></mood-page-element>
+</body>
+
 </html>
