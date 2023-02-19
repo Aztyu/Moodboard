@@ -34,6 +34,10 @@ export class MoodPageElement extends LitElement {
 
     constructor() {
         super();
+        fetch('./variable.json')
+            .then(response => response.json())
+            .then(data => console.log(data))
+
         this.items = []
 
         const request = new Request(
