@@ -16,14 +16,18 @@ export class MoodPageElement extends LitElement {
 
     static get styles() {
         return css`
-            h1 {
+            h1, span {
                 font-family: ParksFont;
+                font-size: 300%;
+            }
+
+            input {
+                font-size: 80%;
             }
 
             .wrapper {
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
-                margin: 0 10% 0 10%;
                 justify-items: center;
             }
         `;
@@ -46,17 +50,17 @@ export class MoodPageElement extends LitElement {
                     .then((array) => {
                         this.items = array.map(item => { return {mood: item} })
                     })
-        
-                const requestUser = new Request(
-                    this.apiUrl + '/mood/user'
-                )
-                fetch(requestUser)
-                    .then((response) => response.json())
-                    .then((obj) => {
-                        console.log('request user', obj)
-                        for (const [key, value] of Object.entries(obj)) {
-                            this.select(value, key);
-                        }
+                    .then(() => {
+                        const requestUser = new Request(
+                            this.apiUrl + '/mood/user'
+                        )
+                        fetch(requestUser)
+                            .then((response) => response.json())
+                            .then((obj) => {
+                                for (const [key, value] of Object.entries(obj)) {
+                                    this.select(value, key);
+                                }
+                            })
                     })
             })
     }
@@ -69,7 +73,7 @@ export class MoodPageElement extends LitElement {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({mood: mood, user: user})
-        }).then(_ => console.log('Update OK'));
+        });
     }
 
     updateSelection(itemMood, itemSelection, newMood, user) {
@@ -99,6 +103,11 @@ export class MoodPageElement extends LitElement {
         })
     }
 
+    changeName(event) {
+        const input = event.target;
+        sessionStorage.setItem('user', input.value)
+    }
+
     render() {
         const itemTemplates = [];
 
@@ -108,6 +117,8 @@ export class MoodPageElement extends LitElement {
 
         return html`
             <h1>Moodboard Leslie</h1>
+            <span>User : <input @input=${this.changeName} .value=${sessionStorage.getItem('user')}/></span>
+
             <div class="wrapper">
                 ${itemTemplates}
             </div>

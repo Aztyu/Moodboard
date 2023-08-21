@@ -36,7 +36,7 @@ export class MoodElement extends LitElement {
       span {
         font-family: ParksFont;
         margin: 0;
-        font-size: 3vh;
+        font-size: 200%;
         text-align: center;
         background-color: #cf4f4f
       }
